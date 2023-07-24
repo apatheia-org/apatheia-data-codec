@@ -3,7 +3,8 @@ package org.apatheia.codec
 object Codec {
 
   implicit class DataDecoder(data: Array[Byte]) {
-    def toObject[T](implicit decoder: Decoder[T]): T = decoder.toObject(data)
+    def toObject[T](implicit decoder: Decoder[T]): Either[DecodingFailure, T] =
+      decoder.toObject(data)
   }
 
   implicit class DataEncoder[T](t: T) {
